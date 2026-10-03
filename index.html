@@ -2115,5 +2115,44 @@ src="https://www.facebook.com/tr?id=1196814618515553&ev=PageView&noscript=1"
     });
   });
 </script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  let deferredPrompt = null;
+
+  // 1. Guardar el evento de instalación cuando la PWA se abre en Chrome
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+  });
+
+  // 2. Interceptar el clic en cualquier botón/elemento que diga "Instalar"
+  document.addEventListener('click', async (e) => {
+    // Busca si el elemento clickeado (o su contenedor) contiene la palabra "instalar"
+    const clickedElement = e.target.closest('button, div, a, span');
+    
+    if (clickedElement && clickedElement.textContent.toLowerCase().includes('instalar')) {
+      
+      const ua = navigator.userAgent || navigator.vendor || window.opera;
+      // Detectar si el usuario está dentro del navegador interno de Facebook o Instagram
+      const isFacebookBrowser = (ua.indexOf("FBAN") > -1) || (ua.indexOf("FBAV") > -1) || (ua.indexOf("Instagram") > -1);
+
+      if (isFacebookBrowser) {
+        // SI ESTÁ EN FACEBOOK: Abrir automáticamente la página en la app de Chrome de Android
+        e.preventDefault();
+        const targetUrl = "bodegaexpressvenezuela.marketjunior.com";
+        window.location.href = `intent://${targetUrl}#Intent;scheme=https;package=com.android.chrome;end;`;
+      } else if (deferredPrompt) {
+        // SI ESTÁ EN CHROME: Disparar la ventana emergente nativa de instalación PWA
+        e.preventDefault();
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        if (outcome === 'accepted') {
+          deferredPrompt = null;
+        }
+      }
+    }
+  });
+});
+</script>
 </body>
 </html>
