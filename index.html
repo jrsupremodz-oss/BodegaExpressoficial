@@ -2058,6 +2058,7 @@ src="https://www.facebook.com/tr?id=1196814618515553&ev=PageView&noscript=1"
   </div>
 </div>
 
+<!-- 4. LÓGICA DE LOCALSTORAGE, APPS SCRIPT Y PÍXEL -->
 <script>
   // ¡IMPORTANTE! Reemplaza esto con el enlace que te dio Google Apps Script
   const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxOhjdjtjMAn6Z9ESTsLWyt-yeggzpcoqnDxm6nlr3nfNLRuIz1G8kNVWmi_3YZOQPZ/exec';
@@ -2099,37 +2100,9 @@ src="https://www.facebook.com/tr?id=1196814618515553&ev=PageView&noscript=1"
           // 3. Guardar en LocalStorage para que no vuelva a pedir registro a este usuario
           localStorage.setItem('clienteBodegaRegistrado', 'true');
           
-          // Capturar datos del formulario
-          const nombre = formData.get('nombre') || formData.get('name') || 'Cliente';
-          const telefono = formData.get('telefono') || formData.get('phone') || '';
-          
-          // Mensaje automático completo incrustado
-          const mensajeWhatsApp = `¡Hola, *${nombre}*! 👋 \n\n` +
-                                  `¡Bienvenido a *BodegaExpress VE Pro*! 🚀 Tu registro se ha completado con éxito y ya tienes activo tu **1 mes de prueba gratis**.\n\n` +
-                                  `Para entrar al sistema de inmediato, haz clic en el siguiente enlace: [BodegaExpress VE Pro](https://bodegaexpressve.marketjunior.com/) 📲\n\n` +
-                                  `Para que puedas usarlo cómodamente como una aplicación normal en tu teléfono (sin tener que entrar al navegador cada vez), instálala siguiendo estos sencillos pasos:\n\n` +
-                                  `📱 *Si estás en Android (Google Chrome):*\n` +
-                                  `1. Toca los **tres puntos verticales (⋮)** en la esquina superior derecha de tu navegador.\n` +
-                                  `2. Selecciona la opción **"Instalar aplicación"** o **"Agregar a la pantalla principal"**.\n` +
-                                  `3. Confirma tocando en **Instalar**. ¡Listo, ya quedará el acceso directo en tu inicio!\n\n` +
-                                  `🍏 *Si estás en iPhone (Safari):*\n` +
-                                  `1. Toca el botón de **Compartir** (el ícono del cuadrado con la flecha hacia arriba en la barra inferior).\n` +
-                                  `2. Busca y selecciona la opción **"Añadir a la pantalla de inicio"**.\n` +
-                                  `3. Toca en **Añadir** arriba a la derecha.\n\n` +
-                                  `💻 *Si estás desde la PC:*\n` +
-                                  `Haz clic en el ícono de instalación (un pequeño monitor con una flecha) que aparece en la barra de direcciones de tu navegador, o haz clic en los tres puntos del navegador y selecciona **"Instalar BodegaExpress VE Pro"**.\n\n` +
-                                  `---\n` +
-                                  `🔑 *¿Listo para empezar?* \n` +
-                                  `Entra al enlace, configura tu inventario y comienza a controlar tus ventas de inmediato. Si tienes alguna duda, escríbeme por aquí. ¡Estamos para ayudarte a crecer! 📈✨\n\n` +
-                                  `*(Datos del registro - Teléfono: ${telefono})*`;
-          
-          const textoCodificado = encodeURIComponent(mensajeWhatsApp);
-          const urlWhatsApp = `https://wa.me/584243800296?text=${textoCodificado}`;
-          
-          // 4. Desaparecer el modal y redirigir a WhatsApp después de 2 segundos
+          // 4. Desaparecer el modal y mostrar la interfaz de BodegaExpress después de 2 segundos
           setTimeout(() => {
             modal.style.display = 'none';
-            window.location.href = urlWhatsApp;
           }, 2000);
         }
       })
